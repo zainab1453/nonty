@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOURI ♥</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            /* خلفية ليلية مدمجة بدرجات البينك الداكن والبنفسجي الساحر */
+            background: linear-gradient(135deg, #1a0010 0%, #4a002a 50%, #2d001f 100%);
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+        }
+
+        /* النجوم المتلألئة في الخلفية */
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle infinite ease-in-out;
+            opacity: 0.3;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* عنوان الفكرة */
+        .sky-title {
+            font-size: 1.4rem;
+            color: #ffb6c1;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* منطقة اسم نوري المضيء بالنجوم */
+        .constellation {
+            font-size: 4.5rem;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            color: #ffc0cb;
+            letter-spacing: 8px;
+            margin: 40px 0;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 2s ease-in-out;
+            text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493, 0 0 40px #ff1493;
+        }
+        .constellation.reveal {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* منطقة الرسالة المؤثرة */
+        .text-box {
+            min-height: 100px;
+            margin: 20px 0;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out 1s;
+        }
+        .text-box.reveal {
+            opacity: 1;
+        }
+        .message {
+            font-size: 1.6rem;
+            color: #fff0f5;
+            font-weight: bold;
+            line-height: 1.7;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        /* زر أنيري السماء بتصميم روز مضيء */
+        .btn {
+            background: linear-gradient(45deg, #ff69b4, #d81b60);
+            color: #fff;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: linear-gradient(45deg, #ff82c1, #ff4081);
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.7);
+        }
+        .btn.hide {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.5);
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- توليد النجوم برمجياً -->
+    <div id="stars-container"></div>
+
+    <div class="container">
+        <div class="sky-title">🌟 بنبص لنفس السماء مهما كانت المسافة... 🌟</div>
+        
+        <!-- الاسم الذي سيضيء فجأة -->
+        <div class="constellation" id="nouri-name">NOURI</div> 
+        
+        <div class="text-box" id="msg-box">
+            <div class="message">
+                "كل ما تحسي بالبعد أو الشوق، بصي للسما وافتكري إن نفس القمر اللي شايفاه، أنا شايفاه وبدعي ليكي تحته.. إنتي أجمل صاحبة عرفتني إنها مش بالسنين.. بحبك أوي يـ نوري ♥"
+            </div>
+        </div>
+
+        <button class="btn" id="action-btn" onclick="lightUpSky()">✨ أنيري السماء سوا</button>
+    </div>
+
+    <script>
+        // كود لتوليد نجوم عشوائية في الخلفية لتبدو كالسماء الحقيقية
+        function createSky() {
+            const container = document.getElementById('stars-container');
+            const starCount = 80;
+            for (let i = 0; i < starCount; i++) {
+                let star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                let size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(star);
+            }
+        }
+        createSky();
+
+        // دالة تفعيل المفاجأة عند الضغط على الزر
+        function lightUpSky() {
+            // إظهار الاسم المضيء والرسالة الكبيرة
+            document.getElementById('nouri-name').classList.add('reveal');
+            document.getElementById('msg-box').classList.add('reveal');
+            
+            // إخفاء الزر بانسيابية بعد الضغط
+            document.getElementById('action-btn').classList.add('hide');
+
+            // تأثير إضافي: جعل النجوم تلمع بقوة أكبر عند تفعيل السماء
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.style.backgroundColor = '#ffb6c1';
+                star.style.boxShadow = '0 0 8px #fff';
+            });
+        }
+    </script>
+</body>
+</html>
